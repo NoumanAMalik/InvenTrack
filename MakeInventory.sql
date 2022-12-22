@@ -1,0 +1,3 @@
+-- Starting Tables: 
+-- Product(Id, UPC, Name, Description, Price)
+-- Inventory(Id, ProductId, Quantity)

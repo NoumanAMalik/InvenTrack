@@ -113,10 +113,10 @@ sqlite3* setup(const char* databaseName) {
 }
 
 int main(int argc, char* argv[]) {
-    if (argc != 5) {
-        std::cerr << "Usage: " << argv[0] << " -m <mode> -upc <upc number>" << std::endl;
+    if (argc < 3) { // To make sure that the mode is given
+        std::cerr << "Usage: " << argv[0] << " -m <mode>" << std::endl;
+        std::cerr << "Error: Missing selection of mode" << std::endl;
         return EXIT_FAILURE;
-        // TODO: Make different return values for different failures
     }
 
     std::string scanin {"scanin"};

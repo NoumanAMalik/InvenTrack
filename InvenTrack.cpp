@@ -7,8 +7,8 @@
 // A function to print table from SQLite Database in a visually appealing way
 void printTable(sqlite3* db, const std::string& tableName) {
     // Clear Screen
-    std::cout << "\033[2J";
-    std::cout << "\033[H";
+    std::cout << "\033[2J"; // Clears Screen
+    std::cout << "\033[H"; // Moves cursor to position (1, 1) [The top left of the screen]
 
     // Made SELECT statement
     std::string statement = "SELECT * FROM " + tableName;

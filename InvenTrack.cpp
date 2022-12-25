@@ -6,6 +6,10 @@
 
 // A function to print table from SQLite Database in a visually appealing way
 void printTable(sqlite3* db, const std::string& tableName) {
+    // Clear Screen
+    std::cout << "\033[2J";
+    std::cout << "\033[H";
+
     // Made SELECT statement
     std::string statement = "SELECT * FROM " + tableName;
 
@@ -22,12 +26,16 @@ void printTable(sqlite3* db, const std::string& tableName) {
 
     // Retreive column names and store in vector
     std::vector<std::string> columnNames;
+    std::vector<int> columnWidths(numOfColumns);
+
     for (int i = 0; i < numOfColumns; i ++) {
-        columnNames.push_back(sqlite3_column_name(preparedStatement, i));
+        std::string columnName = sqlite3_column_name(preparedStatement, i);
+        int width = columnName.size();
+        columnNames.push_back(columnName);
+        columnWidths[i] = std::max(columnWidths[i], width);
     }
     
     // Find the maximum column width
-    std::vector<int> columnWidths(numOfColumns);
     while (sqlite3_step(preparedStatement) == SQLITE_ROW) {
         for (int i = 0; i < numOfColumns; i++) {
             int width = std::string(reinterpret_cast<const char*>(sqlite3_column_text(preparedStatement, i))).size();
@@ -40,20 +48,25 @@ void printTable(sqlite3* db, const std::string& tableName) {
 
     // Print the table header
     for (int i = 0; i < numOfColumns; i ++) {
-        std::cout << std::left << std::setw(columnWidths[i]) << columnNames[i] << "  ";
+        std::cout << std::left << std::setw(columnWidths[i]) << columnNames[i] << " | ";
     }
     std::cout << std::endl;
 
     // Print a separator line
     for (int i = 0; i < numOfColumns; i ++) {
-        std::cout << std::string(columnWidths[i], '-') << "  ";
+        std::cout << std::string(columnWidths[i], '-') << " | ";
     }
     std::cout << std::endl;
 
     // Print the table rows
     while (sqlite3_step(preparedStatement) == SQLITE_ROW) {
         for (int i = 0; i < numOfColumns; i ++) {
-            std::cout << std::left << std::setw(columnWidths[i]) << std::string(reinterpret_cast<const char*>(sqlite3_column_text(preparedStatement, i))) << "  ";
+            std::cout << std::left << std::setw(columnWidths[i]) << std::string(reinterpret_cast<const char*>(sqlite3_column_text(preparedStatement, i))) << " | ";
+        }
+        std::cout << std::endl;
+        // Print a separator line
+        for (int i = 0; i < numOfColumns; i ++) {
+            std::cout << std::string(columnWidths[i], '-') << " | ";
         }
         std::cout << std::endl;
     }

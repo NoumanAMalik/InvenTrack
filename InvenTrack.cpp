@@ -85,7 +85,7 @@ sqlite3* setup(const char* databaseName) {
     return db;
 }
 
-int main() {
+int main(int argc, char* argv[]) {
     auto db = setup("Inventory.db");
 
     printTable(db, "Product");

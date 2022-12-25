@@ -101,6 +101,10 @@ sqlite3* setup(const char* databaseName) {
 }
 
 int main(int argc, char* argv[]) {
+    if (argc != 5) {
+        std::cerr << "Usage: " << argv[0] << " -m <mode> -upc <upc number>" << std::endl;
+    }
+
     auto db = setup("Inventory.db");
     printTable(db, "Product");
 

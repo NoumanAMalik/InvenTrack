@@ -1,5 +1,5 @@
 {
     "code-runner.executorMap": {
-        "cpp": "cd $dir && g++ -std=c++20 -Wall -Wextra -Werror -Wold-style-cast -l sqlite3 $fileName -o $fileNameWithoutExt.exe && $dir$fileNameWithoutExt.exe"
+        "cpp": "$dirTestInvenTrack.zsh"
     }
 }

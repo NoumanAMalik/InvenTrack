@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <sqlite3.h>
 #include <chrono>
+#include <string>
 
 // Benchmark function to test time
 template <typename Func>
@@ -17,6 +18,17 @@ void benchmark(Func f) {
     double time = std::chrono::duration<double>(endTime - startTime).count();
 
     std::cout << "benchmark() took " << time << " seconds" << std::endl;
+}
+
+// Function to simplify turning a string to lowercase
+void toLower(std::string& s) {
+    std::transform(
+        s.begin(), s.end(),
+        s.begin(),
+        [](char c) {
+            return std::tolower(c);
+        }
+    );
 }
 
 // A function to print table from SQLite Database in a visually appealing way
@@ -103,10 +115,20 @@ sqlite3* setup(const char* databaseName) {
 int main(int argc, char* argv[]) {
     if (argc != 5) {
         std::cerr << "Usage: " << argv[0] << " -m <mode> -upc <upc number>" << std::endl;
+        return EXIT_FAILURE;
+        // TODO: Make different return values for different failures
     }
 
+    std::string scanin {"scanin"};
+    std::string modeInput {argv[2]};
+
+    toLower(modeInput);
+
+    if (scanin.compare(modeInput) == 0) {
+        std::cout << "You have selected mode " << modeInput << std::endl;
+    } 
+
     auto db = setup("Inventory.db");
-    printTable(db, "Product");
 
     sqlite3_close(db);
     return EXIT_SUCCESS;

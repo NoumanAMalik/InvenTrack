@@ -72,15 +72,21 @@ void printTable(sqlite3* db, const std::string& tableName) {
     }
 }
 
-int main() {
+sqlite3* setup(const char* databaseName) {
     sqlite3* db;
-    int rc = sqlite3_open("Inventory.db", &db);
+    int rc = sqlite3_open(databaseName, &db);
 
     if (rc != SQLITE_OK) {
         std::cerr << "Error opening SQLite Database: " << sqlite3_errmsg(db) << std::endl;
         sqlite3_close(db);
-        return EXIT_FAILURE;
+        exit(EXIT_FAILURE);
     }
+
+    return db;
+}
+
+int main() {
+    auto db = setup("Inventory.db");
 
     printTable(db, "Product");
 

@@ -3,6 +3,21 @@
 #include <algorithm>
 #include <iomanip>
 #include <sqlite3.h>
+#include <chrono>
+
+// Benchmark function to test time
+template <typename Func>
+void benchmark(Func f) {
+    auto startTime = std::chrono::steady_clock::now();
+
+    f();
+
+    auto endTime = std::chrono::steady_clock::now();
+
+    double time = std::chrono::duration<double>(endTime - startTime).count();
+
+    std::cout << "benchmark() took " << time << " seconds" << std::endl;
+}
 
 // A function to print table from SQLite Database in a visually appealing way
 void printTable(sqlite3* db, const std::string& tableName) {
@@ -87,7 +102,6 @@ sqlite3* setup(const char* databaseName) {
 
 int main(int argc, char* argv[]) {
     auto db = setup("Inventory.db");
-
     printTable(db, "Product");
 
     sqlite3_close(db);

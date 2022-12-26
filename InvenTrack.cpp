@@ -32,6 +32,27 @@ void toLower(std::string& s) {
     );
 }
 
+std::string getProductId(sqlite3* db, std::string upc) {
+    std::string statement = "SELECT Id FROM Product WHERE UPC = " + upc + ";";
+
+    sqlite3_stmt* preparedStatement;
+    int rc = sqlite3_prepare_v2(db, statement.c_str(), -1, &preparedStatement, nullptr);
+    if (rc != SQLITE_OK) {
+        std::cerr << "Error preparing SELECT statement: " << sqlite3_errmsg(db) << std::endl;
+        return "NOT OK";
+    }
+
+    rc = sqlite3_step(preparedStatement);
+    if (rc == SQLITE_ROW) {
+        std::string productId = std::string(reinterpret_cast<const char*>(sqlite3_column_text(preparedStatement, 0)));
+        return productId;
+    } else {
+        std::cerr << "Error executing SELECT statement: " << sqlite3_errmsg(db) << std::endl;
+        return "NO ROW";
+    }
+}
+
+
 // A function to print table from SQLite Database in a visually appealing way
 void printTable(sqlite3* db, const std::string& tableName) {
     // Clear Screen
@@ -116,10 +137,11 @@ sqlite3* setup(const char* databaseName) {
 int main(int argc, char* argv[]) {
     std::string modeInput {};
     std::string upcInput {};
+    std::string quantityInput {};
     int opt;
 
     // Get flags
-    while ((opt = getopt(argc, argv, "m:u:")) != -1) {
+    while ((opt = getopt(argc, argv, "m:u:q:")) != -1) {
         switch (opt) {
             case 'm':
                 modeInput = optarg;
@@ -127,21 +149,26 @@ int main(int argc, char* argv[]) {
             case 'u':
                 upcInput = optarg;
                 break;
+            case 'q':
+                quantityInput = optarg;
+                break;
             default:
                 std::cerr << "Invalid option: " << opt << std::endl;
                 return EXIT_FAILURE;
         }
     }
 
+
     std::string scanin {"scanin"};
 
+ 
     toLower(modeInput);
+    
+    auto db = setup("Inventory.db");
 
     if (scanin.compare(modeInput) == 0) {
-        // TODO: When in scanin mode, make SQL statement to get product id and add to inventory
+        std::cout << getProductId(db, upcInput) << std::endl;
     }
-
-    auto db = setup("Inventory.db");
 
     sqlite3_close(db);
     return EXIT_SUCCESS;

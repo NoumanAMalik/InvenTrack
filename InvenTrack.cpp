@@ -5,6 +5,7 @@
 #include <sqlite3.h>
 #include <chrono>
 #include <string>
+#include <unistd.h>
 
 // Benchmark function to test time
 template <typename Func>
@@ -113,20 +114,32 @@ sqlite3* setup(const char* databaseName) {
 }
 
 int main(int argc, char* argv[]) {
-    if (argc < 3) { // To make sure that the mode is given
-        std::cerr << "Usage: " << argv[0] << " -m <mode>" << std::endl;
-        std::cerr << "Error: Missing selection of mode" << std::endl;
-        return EXIT_FAILURE;
+    std::string modeInput {};
+    std::string upcInput {};
+    int opt;
+
+    // Get flags
+    while ((opt = getopt(argc, argv, "m:u:")) != -1) {
+        switch (opt) {
+            case 'm':
+                modeInput = optarg;
+                break;
+            case 'u':
+                upcInput = optarg;
+                break;
+            default:
+                std::cerr << "Invalid option: " << opt << std::endl;
+                return EXIT_FAILURE;
+        }
     }
 
     std::string scanin {"scanin"};
-    std::string modeInput {argv[2]};
 
     toLower(modeInput);
 
     if (scanin.compare(modeInput) == 0) {
-        std::cout << "You have selected mode " << modeInput << std::endl;
-    } 
+        // TODO: When in scanin mode, make SQL statement to get product id and add to inventory
+    }
 
     auto db = setup("Inventory.db");
 

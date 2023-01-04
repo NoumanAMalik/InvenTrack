@@ -32,6 +32,9 @@ void toLower(std::string& s) {
     );
 }
 
+// Gets the ProductId field from the Product Table
+// Parameters: sqlite database, and upc number
+// Returns ProductId
 std::string getProductId(sqlite3* db, std::string upc) {
     std::string statement = "SELECT Id FROM Product WHERE UPC = " + upc + ";";
 
@@ -158,9 +161,7 @@ int main(int argc, char* argv[]) {
         }
     }
 
-
     std::string scanin {"scanin"};
-
  
     toLower(modeInput);
     

@@ -55,6 +55,27 @@ std::string getProductId(sqlite3* db, std::string upc) {
     }
 }
 
+int scanIn(sqlite3* db, std::string upc, std::string quantity) {
+    std::string statement = "INSERT INTO Inventory(ProductId, Quantity) "
+                            "SELECT Id, " + quantity + " FROM Product "
+                            "WHERE Product.UPC = " + upc + ";";
+
+    sqlite3_stmt* preparedStatement;
+    int rc = sqlite3_prepare_v2(db, statement.c_str(), -1, &preparedStatement, nullptr);
+    if (rc != SQLITE_OK) {
+        std::cerr << "Error preparing INSERT statement: " << sqlite3_errmsg(db) << std::endl;
+        return -1;
+    }
+
+    rc = sqlite3_step(preparedStatement);
+    if (rc != SQLITE_DONE) {
+        std::cerr << "Error executing INSERT statement: " << sqlite3_errmsg(db) << std::endl;
+        return -1;
+    }
+
+    return 1;
+}
+
 
 // A function to print table from SQLite Database in a visually appealing way
 void printTable(sqlite3* db, const std::string& tableName) {
@@ -168,8 +189,10 @@ int main(int argc, char* argv[]) {
     auto db = setup("Inventory.db");
 
     if (scanin.compare(modeInput) == 0) {
-        std::cout << getProductId(db, upcInput) << std::endl;
+        std::cout << scanIn(db, upcInput, quantityInput) << std::endl;
     }
+
+    printTable(db, "Inventory");
 
     sqlite3_close(db);
     return EXIT_SUCCESS;

@@ -1,8 +1,8 @@
-#!/bin/zsh
+#!/bin/bash
 # A script to test InvenTack.cpp
 
 ## First reset the database
-./ResetDatabase.zsh
+./ResetDatabase.bash
 
 ## Compile InvenTrack.cpp
 g++ -std=c++20 -Wall -Wextra -Werror -l sqlite3 InvenTrack.cpp -o InvenTrack.exe

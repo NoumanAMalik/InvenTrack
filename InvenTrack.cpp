@@ -119,14 +119,29 @@ void printTable(sqlite3* db, const std::string& tableName) {
     // Reset the prepared statement for reuse
     sqlite3_reset(preparedStatement);
 
+	// // Print a separator line
+ //    for (int i = 0; i < numOfColumns; i ++) {
+	// 	if (i == 0) {
+	// 		std::cout << "| ";
+	// 	}
+ //        std::cout << std::string(columnWidths[i], '-') << " | ";
+ //    }
+ //    std::cout << std::endl;
+	
     // Print the table header
     for (int i = 0; i < numOfColumns; i ++) {
+		if (i == 0) {
+			std::cout << "| ";
+		}
         std::cout << std::left << std::setw(columnWidths[i]) << columnNames[i] << " | ";
     }
     std::cout << std::endl;
 
     // Print a separator line
     for (int i = 0; i < numOfColumns; i ++) {
+		if (i == 0) {
+			std::cout << "| ";
+		}
         std::cout << std::string(columnWidths[i], '-') << " | ";
     }
     std::cout << std::endl;
@@ -134,11 +149,17 @@ void printTable(sqlite3* db, const std::string& tableName) {
     // Print the table rows
     while (sqlite3_step(preparedStatement) == SQLITE_ROW) {
         for (int i = 0; i < numOfColumns; i ++) {
+			if (i == 0) {
+				std::cout << "| ";
+			}
             std::cout << std::left << std::setw(columnWidths[i]) << std::string(reinterpret_cast<const char*>(sqlite3_column_text(preparedStatement, i))) << " | ";
         }
         std::cout << std::endl;
         // Print a separator line
         for (int i = 0; i < numOfColumns; i ++) {
+			if (i == 0) {
+				std::cout << "| ";
+			}
             std::cout << std::string(columnWidths[i], '-') << " | ";
         }
         std::cout << std::endl;

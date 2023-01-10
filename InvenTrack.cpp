@@ -204,6 +204,7 @@ int main(int argc, char* argv[]) {
     }
 
     std::string scanin {"scanin"};
+	std::string addproduct {"addproduct"};
  
     toLower(modeInput);
     
@@ -211,7 +212,14 @@ int main(int argc, char* argv[]) {
 
     if (scanin.compare(modeInput) == 0) {
         std::cout << scanIn(db, upcInput, quantityInput) << std::endl;
-    }
+    } else (addproduct.compare(modeInput) == 0) {
+		// Enter Code Here For Adding a Product
+		// Get Name
+		// Get UPC
+		// Get Description
+		// Get Price
+		// Allow the user to keep entering the information in order until they enter the word done or they exit the current document
+	}
 
     printTable(db, "Inventory");
 

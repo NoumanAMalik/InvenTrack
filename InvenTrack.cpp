@@ -35,7 +35,7 @@ void toLower(std::string& s) {
 // Gets the ProductId field from the Product Table
 // Parameters: sqlite database, and upc number
 // Returns ProductId
-std::string getProductId(sqlite3* db, std::string upc) {
+std::string getProductId(sqlite3* db, std::string const& upc) {
     std::string statement = "SELECT Id FROM Product WHERE UPC = " + upc + ";";
 
     sqlite3_stmt* preparedStatement;
@@ -55,7 +55,7 @@ std::string getProductId(sqlite3* db, std::string upc) {
     }
 }
 
-int scanIn(sqlite3* db, std::string upc, std::string quantity) {
+int scanIn(sqlite3* db, std::string const& upc, std::string const& quantity) {
     std::string statement = "INSERT INTO Inventory(ProductId, Quantity) "
                             "SELECT Id, " + quantity + " FROM Product "
                             "WHERE Product.UPC = " + upc + ";";
@@ -97,13 +97,13 @@ void printTable(sqlite3* db, const std::string& tableName) {
     // Determine number of columns in table
     int numOfColumns = sqlite3_column_count(preparedStatement);
 
-    // Retreive column names and store in vector
+    // Retrieve column names and store in vector
     std::vector<std::string> columnNames;
     std::vector<int> columnWidths(numOfColumns);
 
     for (int i = 0; i < numOfColumns; i ++) {
         std::string columnName = sqlite3_column_name(preparedStatement, i);
-        int width = columnName.size();
+        int width = static_cast<int>(columnName.size());
         columnNames.push_back(columnName);
         columnWidths[i] = std::max(columnWidths[i], width);
     }
@@ -111,7 +111,7 @@ void printTable(sqlite3* db, const std::string& tableName) {
     // Find the maximum column width
     while (sqlite3_step(preparedStatement) == SQLITE_ROW) {
         for (int i = 0; i < numOfColumns; i++) {
-            int width = std::string(reinterpret_cast<const char*>(sqlite3_column_text(preparedStatement, i))).size();
+            int width = static_cast<int>(std::string(reinterpret_cast<const char*>(sqlite3_column_text(preparedStatement, i))).size());
             columnWidths[i] = std::max(columnWidths[i], width);
         }
     }
@@ -210,16 +210,17 @@ int main(int argc, char* argv[]) {
     
     auto db = setup("Inventory.db");
 
-    if (scanin.compare(modeInput) == 0) {
+    if (scanin == modeInput) {
         std::cout << scanIn(db, upcInput, quantityInput) << std::endl;
-    } else (addproduct.compare(modeInput) == 0) {
-		// Enter Code Here For Adding a Product
-		// Get Name
-		// Get UPC
-		// Get Description
-		// Get Price
-		// Allow the user to keep entering the information in order until they enter the word done or they exit the current document
-	}
+    }
+//    else (addproduct.compare(modeInput) == 0) {
+//		// Enter Code Here For Adding a Product
+//		// Get Name
+//		// Get UPC
+//		// Get Description
+//		// Get Price
+//		// Allow the user to keep entering the information in order until they enter the word done, or they exit the current document
+//	}
 
     printTable(db, "Inventory");
 

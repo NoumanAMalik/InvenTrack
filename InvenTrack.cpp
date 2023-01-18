@@ -5,11 +5,12 @@
 #include <sqlite3.h>
 #include <chrono>
 #include <string>
+#include <iterator>
 #include <unistd.h>
 
 // Benchmark function to test time
 template <typename Func>
-auto benchmark(Func f) -> void {
+auto benchmark(Func f) {
     auto startTime = std::chrono::steady_clock::now();
 
     f();
@@ -22,7 +23,7 @@ auto benchmark(Func f) -> void {
 }
 
 // Function to simplify turning a string to lowercase
-auto toLower(std::string& s) -> void {
+auto toLower(std::string& s) {
     std::transform(
         s.begin(), s.end(),
         s.begin(),
@@ -76,12 +77,15 @@ auto scanIn(sqlite3* db, std::string const& upc, std::string const& quantity) ->
     return 1;
 }
 
-
-// A function to print table from SQLite Database in a visually appealing way
-void printTable(sqlite3* db, const std::string& tableName) {
+auto clearScreen() {
     // Clear Screen
     std::cout << "\033[2J"; // Clears Screen
     std::cout << "\033[H"; // Moves cursor to position (1, 1) [The top left of the screen]
+}
+
+// A function to print table from SQLite Database in a visually appealing way
+void printTable(sqlite3* db, const std::string& tableName) {
+    clearScreen();
 
     // Made SELECT statement
     std::string statement = "SELECT * FROM " + tableName;
@@ -166,7 +170,7 @@ void printTable(sqlite3* db, const std::string& tableName) {
     }
 }
 
-auto setup(const char* databaseName) -> sqlite3*{
+auto setup(const char* databaseName) -> sqlite3* {
     sqlite3* db;
     int rc = sqlite3_open(databaseName, &db);
 
@@ -179,7 +183,7 @@ auto setup(const char* databaseName) -> sqlite3*{
     return db;
 }
 
-auto main(int argc, char* argv[]) -> int {
+int main(int argc, char* argv[]) {
     std::string modeInput {};
     std::string upcInput {};
     std::string quantityInput {};
@@ -210,19 +214,29 @@ auto main(int argc, char* argv[]) -> int {
     
     auto db = setup("Inventory.db");
 
-    if (scanin == modeInput) {
+    if (scanin.compare(modeInput) == 0) {
         std::cout << scanIn(db, upcInput, quantityInput) << std::endl;
-    }
-//    else (addproduct.compare(modeInput) == 0) {
-//		// Enter Code Here For Adding a Product
-//		// Get Name
-//		// Get UPC
-//		// Get Description
-//		// Get Price
-//		// Allow the user to keep entering the information in order until they enter the word done, or they exit the current document
-//	}
+    } else if (addproduct.compare(modeInput) == 0) {
+		// Enter Code Here For Adding a Product
+        std::cout << "Please enter the following information in the following order: Name, UPC, Description, Price." << std::endl;
+        std::cout << "When you are done, enter the word \"done\" or hit CRTL+D" << std::endl;
+        std::vector<std::string> input;
 
-    printTable(db, "Inventory");
+        std::transform(
+            std::istream_iterator<std::string>(std::cin), std::istream_iterator<std::string>(),
+            input.begin(),
+            [](auto i) {
+                std::cout << i;
+            }
+        );
+		// Get Name
+		// Get UPC
+		// Get Description
+		// Get Price
+		// Allow the user to keep entering the information in order until they enter the word done, or they exit the current document
+	}
+
+    // printTable(db, "Inventory");
 
     sqlite3_close(db);
     return EXIT_SUCCESS;

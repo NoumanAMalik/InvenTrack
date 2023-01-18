@@ -9,7 +9,7 @@
 
 // Benchmark function to test time
 template <typename Func>
-void benchmark(Func f) {
+auto benchmark(Func f) -> void {
     auto startTime = std::chrono::steady_clock::now();
 
     f();
@@ -22,7 +22,7 @@ void benchmark(Func f) {
 }
 
 // Function to simplify turning a string to lowercase
-void toLower(std::string& s) {
+auto toLower(std::string& s) -> void {
     std::transform(
         s.begin(), s.end(),
         s.begin(),
@@ -35,7 +35,7 @@ void toLower(std::string& s) {
 // Gets the ProductId field from the Product Table
 // Parameters: sqlite database, and upc number
 // Returns ProductId
-std::string getProductId(sqlite3* db, std::string const& upc) {
+auto getProductId(sqlite3* db, std::string const& upc) -> std::string {
     std::string statement = "SELECT Id FROM Product WHERE UPC = " + upc + ";";
 
     sqlite3_stmt* preparedStatement;
@@ -55,7 +55,7 @@ std::string getProductId(sqlite3* db, std::string const& upc) {
     }
 }
 
-int scanIn(sqlite3* db, std::string const& upc, std::string const& quantity) {
+auto scanIn(sqlite3* db, std::string const& upc, std::string const& quantity) -> int {
     std::string statement = "INSERT INTO Inventory(ProductId, Quantity) "
                             "SELECT Id, " + quantity + " FROM Product "
                             "WHERE Product.UPC = " + upc + ";";
@@ -166,7 +166,7 @@ void printTable(sqlite3* db, const std::string& tableName) {
     }
 }
 
-sqlite3* setup(const char* databaseName) {
+auto setup(const char* databaseName) -> sqlite3*{
     sqlite3* db;
     int rc = sqlite3_open(databaseName, &db);
 
@@ -179,7 +179,7 @@ sqlite3* setup(const char* databaseName) {
     return db;
 }
 
-int main(int argc, char* argv[]) {
+auto main(int argc, char* argv[]) -> int {
     std::string modeInput {};
     std::string upcInput {};
     std::string quantityInput {};

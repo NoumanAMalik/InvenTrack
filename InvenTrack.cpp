@@ -219,16 +219,31 @@ int main(int argc, char* argv[]) {
     } else if (addproduct.compare(modeInput) == 0) {
 		// Enter Code Here For Adding a Product
         std::cout << "Please enter the following information in the following order: Name, UPC, Description, Price." << std::endl;
+        std::cout << "If Name or Description need more than one word, surround with quotes" << std::endl;
         std::cout << "When you are done, enter the word \"done\" or hit CRTL+D" << std::endl;
-        std::vector<std::string> input;
+        std::vector<std::string> input {};
 
-        std::transform(
-            std::istream_iterator<std::string>(std::cin), std::istream_iterator<std::string>(),
-            input.begin(),
-            [](auto i) {
-                std::cout << i;
+        std::string read;
+        while (std::cin >> read && read != "done") {
+            input.push_back(read);
+        }
+
+        std::string name;
+        std::string upc;
+        std::string description;
+        std::string price;
+
+        for (auto const& i : input) {
+            if (i[0] == '\"') {
+
             }
+        }
+
+        std::copy(
+                input.begin(), input.end(),
+                std::ostream_iterator<std::string>(std::cout, "\n")
         );
+
 		// Get Name
 		// Get UPC
 		// Get Description
@@ -236,7 +251,7 @@ int main(int argc, char* argv[]) {
 		// Allow the user to keep entering the information in order until they enter the word done, or they exit the current document
 	}
 
-    // printTable(db, "Inventory");
+
 
     sqlite3_close(db);
     return EXIT_SUCCESS;

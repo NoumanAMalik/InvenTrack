@@ -221,27 +221,27 @@ int main(int argc, char* argv[]) {
         std::cout << "Please enter the following information in the following order: Name, UPC, Description, Price." << std::endl;
         std::cout << "If Name or Description need more than one word, surround with quotes" << std::endl;
         std::cout << "When you are done, enter the word \"done\" or hit CRTL+D" << std::endl;
-        std::vector<std::string> input {};
-
-        std::string read;
-        while (std::cin >> read && read != "done") {
-            input.push_back(read);
-        }
 
         std::string name;
         std::string upc;
         std::string description;
         std::string price;
 
-        for (auto const& i : input) {
-            if (i[0] == '\"') {
+        std::vector<std::string> input {};
+        std::string cur_input {};
 
+        while (std::getline(std::cin, cur_input)) {
+            if (cur_input == "done") {
+                std::cout << "You are printing \n";
+                break;
             }
+            std::cin.clear();
+            input.push_back(cur_input);
         }
 
         std::copy(
                 input.begin(), input.end(),
-                std::ostream_iterator<std::string>(std::cout, "\n")
+                std::ostream_iterator<std::string>(std::cout, ", ")
         );
 
 		// Get Name

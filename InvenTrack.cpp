@@ -1,4 +1,5 @@
 #include <iostream>
+#include <list>
 #include <vector>
 #include <algorithm>
 #include <iomanip>
@@ -227,7 +228,7 @@ int main(int argc, char* argv[]) {
         std::string description;
         std::string price;
 
-        std::vector<std::string> input {};
+        std::list<std::string> input {};
         std::string cur_input {};
 
         while (std::getline(std::cin, cur_input)) {
@@ -237,6 +238,11 @@ int main(int argc, char* argv[]) {
             }
             std::cin.clear();
             input.push_back(cur_input);
+        }
+
+        if (input.size() == 4) {
+            name = input.front();
+            input.pop_front();
         }
 
         std::copy(

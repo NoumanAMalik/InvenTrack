@@ -11,7 +11,7 @@ This tool is going to be a command line too where the user would have 2 options 
 In the first way, the user would enter all the information in one line.
 
 ``` bash
-InvenTrack -m scanin -upc ########
+InvenTrack -m scanin -u ########
 ```
 
 In the second way, the user would enter information when requested by the program

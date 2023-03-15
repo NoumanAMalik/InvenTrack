@@ -10,8 +10,5 @@ int main(int argc, char* argv[]) {
         std::cerr << "Usage: InvenTrack <mode> <...>" << '\n';
     }
 
-    auto foundCommand = std::find(commands.begin(), commands.end(), argv[1]);
 
-    if (*foundCommand != "") std::cout << *foundCommand << '\n';
-    else std::cout << "Not a command" << '\n';
 }

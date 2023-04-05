@@ -1,5 +1,0 @@
-/Users/noumanm/Desktop/Code/C++/InvenTrack/cmake-build-debug/CMakeFiles/InvenTrack.dir
-/Users/noumanm/Desktop/Code/C++/InvenTrack/cmake-build-debug/CMakeFiles/scanlib.dir
-/Users/noumanm/Desktop/Code/C++/InvenTrack/cmake-build-debug/CMakeFiles/test_InvenTrack.dir
-/Users/noumanm/Desktop/Code/C++/InvenTrack/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/noumanm/Desktop/Code/C++/InvenTrack/cmake-build-debug/CMakeFiles/rebuild_cache.dir

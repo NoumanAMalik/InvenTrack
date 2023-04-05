@@ -1,0 +1,78 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.25"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "InvenTrack",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "InvenTrack::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-InvenTrack-Debug-37f8bddd8c6af152f5c9.json",
+					"name" : "InvenTrack",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "scanlib::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-scanlib-Debug-3fb0bdeb5984c691303f.json",
+					"name" : "scanlib",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_InvenTrack::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_InvenTrack-Debug-86da0c99e046ba4f7986.json",
+					"name" : "test_InvenTrack",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/noumanm/Desktop/Code/C++/InvenTrack/cmake-build-debug",
+		"source" : "/Users/noumanm/Desktop/Code/C++/InvenTrack"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

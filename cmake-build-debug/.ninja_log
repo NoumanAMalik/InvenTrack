@@ -1,0 +1,18 @@
+# ninja log v5
+3	720	1680667944652838841	CMakeFiles/InvenTrack.dir/InvenTrack.cpp.o	f12f629e127e6c9b
+1	666	1680662750404390942	CMakeFiles/InvenTrack.dir/scanin.cpp.o	eb1da925d44ef117
+1	50	1680662749790286191	CMakeFiles/InvenTrack.dir/scanout.cpp.o	ed11f6e847a80cc1
+1	71	1680667976859416734	build.ninja	456a2e4db25c57b8
+4	430	1680665717391898514	CMakeFiles/scanlib.dir/scanout.cpp.o	caec15c5897e6bfb
+2	12	0	/Users/noumanm/Desktop/Code/C++/InvenTrack/cmake-build-debug/CMakeFiles/test_InvenTrack	a14900241ebb1b6f
+3	430	1680665717391535637	CMakeFiles/scanlib.dir/scanin.cpp.o	8b971c75d21e9f84
+2	790	1680667251556591496	CMakeFiles/test_InvenTrack.dir/test_InvenTrack.cpp.o	f1c450a02bf174a5
+3	49	1680667943986826000	libscanlib.a	28c2124543208072
+2	12	0	CMakeFiles/test_InvenTrack	a14900241ebb1b6f
+720	775	1680667944710676374	InvenTrack	9c88cb44d188144
+2	54	1680667237149904000	libInvenTrack.a	25b0d55a0281d095
+3	53	1680667978839912000	libscanlib.a	9c9e3b99e99d5649
+3	733	1680667979514811245	CMakeFiles/InvenTrack.dir/InvenTrack.cpp.o	572996098378a44a
+733	784	1680667979567311825	InvenTrack	9c88cb44d188144
+785	869	0	CMakeFiles/test_InvenTrack	a14900241ebb1b6f
+785	869	0	/Users/noumanm/Desktop/Code/C++/InvenTrack/cmake-build-debug/CMakeFiles/test_InvenTrack	a14900241ebb1b6f

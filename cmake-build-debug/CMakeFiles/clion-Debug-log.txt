@@ -1,0 +1,4 @@
+"/Users/noumanm/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.174/CLion.app/Contents/bin/cmake/mac/bin/cmake" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=/Users/noumanm/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.174/CLion.app/Contents/bin/ninja/mac/ninja" -G Ninja -S /Users/noumanm/Desktop/Code/C++/InvenTrack -B /Users/noumanm/Desktop/Code/C++/InvenTrack/cmake-build-debug
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/noumanm/Desktop/Code/C++/InvenTrack/cmake-build-debug
